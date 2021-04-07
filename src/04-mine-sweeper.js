@@ -21,8 +21,25 @@
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new Error('Not implemented');
+function minesweeper(matrix) {
+  // make copy of matrix
+  const res = matrix.map((elem) => elem.map(() => 0));
+  matrix.forEach((el, ind) => el.forEach((val, ind2) => {
+    let value = 0;
+    if (val) value = 1;
+    for (let m = ind - 1; m <= ind + 1; m++) {
+      if (typeof (res[m]) !== 'undefined') {
+        for (let n = ind2 - 1; n <= ind2 + 1; n++) {
+          if (typeof (res[m][n]) !== 'undefined') {
+            if (!(m === ind && n === ind2)) {
+              res[m][n] += value;
+            }
+          }
+        }
+      }
+    }
+  }));
+  return res;
 }
 
 module.exports = minesweeper;
